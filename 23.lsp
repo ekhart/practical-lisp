@@ -216,8 +216,19 @@
 
 
 ;;; Testing the Filter
+(defun add-file-to-corpus (filename type corpus)
+	(vector-push-extend (list filename type) corpus))
 
-		
+(defparameter *corpus* 
+	(make-array 1000 :adjustable t :fill-pointer 0))
+
+;; list-directory function from Chapter 15
+(defun add-directory-to-corpus (dir type corpus)
+	(dolist (filename (list-directory dir))
+		(add-file-to-corpus filename type corpus)))
+
+; (add-directory-to-corpus "mail/spam/" 'spam *corpus*)
+; (add-directory-to-corpus "mail/ham/" 'ham *corpus*)
 		
 		
 		
