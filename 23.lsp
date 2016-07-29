@@ -222,27 +222,35 @@
 (defparameter *corpus* 
 	(make-array 1000 :adjustable t :fill-pointer 0))
 
-;; list-directory function from Chapter 15
+;; list-directory function from Chapter 15	
 (defun add-directory-to-corpus (dir type corpus)
 	(dolist (filename (list-directory dir))
 		(add-file-to-corpus filename type corpus)))
 
 ; (add-directory-to-corpus "mail/spam/" 'spam *corpus*)
 ; (add-directory-to-corpus "mail/ham/" 'ham *corpus*)
-		
-		
-		
-		
-		
-		
-	
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+(defun test-classifier (corpus testing-fraction)
+	(clear-database)
+	(let* ((shuffled (shuffle-vector corpus))
+			(size (length corpus))
+			(train-on (floor (* size (- 1 testing-fraction)))))
+		(train-from-corpus shuffled :start 0 :end train-on)
+		(test-from-corpus shuffled :start train-on)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
