@@ -256,9 +256,16 @@
 				:classification classification
 				:score score)))))
 
+; A Couple of Utility Functions
+(defun nshuffle-vector (vector)
+	(loop for idx downfrom (1- (length vector)) to 1
+		for other = (random (1+ idx))
+		do (unless (= idx other)
+			(rotatef (aref vector idx) (aref vector other))))
+	vector)
 
-
-
+(defun shuffle-vector (vector)
+	(nshuffle-vector (copy-seq vector)))
 
 
 
