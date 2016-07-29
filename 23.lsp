@@ -267,7 +267,14 @@
 (defun shuffle-vector (vector)
 	(nshuffle-vector (copy-seq vector)))
 
-
+(defun start-of-file (file max-chars)
+	(with-open-file (in file)
+		(let* ((length (min (file-length in) max-chars))
+				(text (make-string length))
+				(read (read-sequence text in)))
+			(if (< read length)
+				(subseq text 0 read)
+				text))))
 
 
 
