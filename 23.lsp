@@ -245,7 +245,16 @@
 		(destructing-bind (file type) (aref corpus idx)
 			(train (start-of-file file *max-chars*) type))))
 
-
+(defun test-from-corpus (corpus &key (start 0) end)
+	(loop for idx from start below (or end (length corpus)) collect
+		(destructing-bind (file type) (aref corpus idx)
+			(multiple-value-bind (classification score)
+				(classify (start-of-file file *max-chars*))
+			(list
+				:file file
+				:type type
+				:classification classification
+				:score score)))))
 
 
 
