@@ -238,7 +238,12 @@
 		(train-from-corpus shuffled :start 0 :end train-on)
 		(test-from-corpus shuffled :start train-on)))
 
+(defparameter *max-chars* (* 10 1024))
 
+(defun train-from-corpus (corpus &key (start 0) end)
+	(loop for idx from start below (or end (length corpus)) do
+		(destructing-bind (file type) (aref corpus idx)
+			(train (start-of-file file *max-chars*) type))))
 
 
 
