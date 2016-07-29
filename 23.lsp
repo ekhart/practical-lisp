@@ -276,8 +276,20 @@
 				(subseq text 0 read)
 				text))))
 
-
-
+; Analyzing the Results
+(defun result-type (result)
+	(destructing-bind (&key type classification &allow-other-keys) result
+		(ecase type
+			(ham
+				(ecase classification
+					(ham 'correct)
+					(spam 'false-positive)
+					(unsure 'missed-ham)))
+			(spam
+				(ecase classification
+					(ham 'false-negative)
+					(spam 'correct)
+					(unsure 'missed-spam))))))
 
 
 
